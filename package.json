@@ -12,5 +12,10 @@
     "sinon-chai": "^3.7.0",
     "start-server-and-test": "^1.14.0",
     "superstatic": "^7.1.0"
+  },
+  "scripts": {
+    "start": "superstatic src --port 3000",
+    "cy:open": "cypress open",
+    "cypress": "start-server-and-test start http://localhost:3000 cy:open"
   }
 }
