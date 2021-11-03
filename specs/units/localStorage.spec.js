@@ -1,6 +1,6 @@
 describe('localStorage', () => {
-    
-    subject(()=> window.localStorage);
+
+    subject(() => window.localStorage);
 
     it(() => is.expected.to.respondTo('getItem'));
     it(() => is.expected.to.respondTo('setItem'));
@@ -14,7 +14,7 @@ describe('localStorage', () => {
         email: 'giovanni@fakemail.com'
     };
 
-    describe.only('#setItem', () => { 
+    describe('#setItem', () => {
         let storedData;
 
         before(() => {
@@ -30,6 +30,69 @@ describe('localStorage', () => {
             expect(typeof storedData.entries).to.equal('string');
         });
 
+    });
+
+    describe('#getItem', () => {
+
+        context('existing key', () => {
+
+            def('response', () => $subject.getItem('entries'));
+
+            before(() => {
+                $subject.setItem('entries', JSON.stringify(entry_1));
+            });
+
+            it('is expected to return a string ', () => {
+                expect(typeof $response).to.equal('string');
+            });
+
+            it('is expected to contain the data', () => {
+                expect(JSON.parse($response)).to.eql(entry_1);
+            });
+
+        });
+
+        context('non existing key', () => {
+
+            def('response', () => $subject.getItem('nonExistingKey'));
+
+            it('is expected to return "undefined"', () => {
+                expect($response).to.equal(undefined);
+            });
+
+        });
+
+    });
+
+    describe("#removeItem", () => {
+
+        beforeEach(() => {
+            $subject.setItem("keyToRemove", "some value");
+        });
+
+        it("is expected to remove an item", () => {
+            $subject.removeItem("keyToRemove");
+            expect($subject.data).to.not.have.own.property("keyToRemove");
+        });
+
+    });
+
+    describe("#clear", () => {
+
+        beforeEach(() => {
+            $subject.setItem("myKey", "some value");
+            $subject.setItem("myKey2", "some value");
+            $subject.clear();
+        });
+        
+        it("is expected to remove an item myKey", () => {
+            expect($subject.data).to.not.have.own.property("myKey");
+        });
+        
+        it("is expected to remove an item myKey2", () => {
+            expect($subject.data).to.not.have.own.property("myKey2");
+        });
+        
     });
 
 });
