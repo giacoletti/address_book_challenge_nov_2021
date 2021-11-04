@@ -5,6 +5,7 @@ class AddressBook {
         const entries = this.storage.getItem('entries');
         return JSON.parse(entries);
     }
+
     create(data) {
         if (data.constructor === Object) {
             const oldEntries = this.storage.getItem('entries') || "[]";
@@ -16,7 +17,8 @@ class AddressBook {
             return 'We could not process your entry';
         }
     }
-    update(existingItem, newItem){
+
+    update(existingItem, newItem) {
         if ((existingItem.constructor === Object) && (newItem.constructor === Object)) {
             const oldEntries = this.storage.getItem('entries');
             const newEntries = JSON.parse(oldEntries);
@@ -27,6 +29,21 @@ class AddressBook {
                 return 'Contact updated!';
             } else {
                 return 'Something went wrong during the updating process!';
+            }
+        }
+    }
+
+    delete(itemToDelete) {
+        if (itemToDelete.constructor === Object) {
+            const oldEntries = this.storage.getItem('entries');
+            const newEntries = JSON.parse(oldEntries);
+            const elementIndex = newEntries.findIndex((element) => element.name === itemToDelete.name);
+            if (elementIndex !== -1) {
+                newEntries.splice(elementIndex, 1);    //find and delete contact
+                this.storage.setItem('entries', JSON.stringify(newEntries));
+                return 'Contact deleted!';
+            } else {
+                return "I'm sorry, there is an error during the deletion process";
             }
         }
     }

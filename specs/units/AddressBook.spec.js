@@ -18,6 +18,10 @@ describe('AddressBook', () => {
 
     it(() => is.expected.to.respondTo('create'));
 
+    it(() => is.expected.to.respondTo('update'));
+
+    it(() => is.expected.to.respondTo('delete'));
+
     let setItemSpy, getItemSpy, stringifySpy, parseSpy, message, arrayFindIndexSpy, arraySpliceSpy;
 
     setItemSpy = sinon.spy(window.localStorage, 'setItem');
@@ -73,7 +77,7 @@ describe('AddressBook', () => {
         });
 
         context('with invalid data', () => {
-            
+
             beforeEach(() => {
                 message = $subject.create($invalidData);
             });
@@ -91,7 +95,7 @@ describe('AddressBook', () => {
         let collection;
 
         beforeEach(() => {
-            
+
             $subject.create({ name: 'Giovanni' });
             $subject.create({ name: 'Luca' });
             $subject.create({ name: 'Matteo' });
@@ -111,15 +115,15 @@ describe('AddressBook', () => {
         it('is expected to return an array with 3 objects', () => {
             expect(collection).to.be.an.instanceOf(Array).and.have.length(3);
         });
-        
+
     });
 
     describe('#update', () => {
 
         let collection;
-        
+
         beforeEach(() => {
-            
+
             $subject.create({ name: 'Gaia' });
             $subject.create({ name: 'Marta' });
             $subject.create({ name: 'Jack' });
@@ -147,6 +151,47 @@ describe('AddressBook', () => {
 
         it('is expected to respond with a success message', () => {
             expect(message).to.equal('Contact updated!');
+        });
+
+    });
+
+    describe('#delete', () => {
+
+        let collection;
+
+        beforeEach(() => {
+
+            $subject.create({ name: 'Carlo' });
+            $subject.create({ name: 'Jakob' });
+            $subject.create({ name: 'Matteo' });
+            message = $subject.delete({ name: 'Jakob' });
+            sinon.reset();
+            collection = $subject.index();
+
+        });
+
+        it('is expected to call on localStorage.getItem', () => {
+            expect(getItemSpy).to.have.been.calledOnce;
+        });
+
+        // it('is expected to call on localStorage.setItem', () => {   //NOT WORKING
+        //     expect(setItemSpy).to.have.been.calledOnce;
+        // });
+
+        it('is expected to call on JSON.parse', () => {
+            expect(parseSpy).to.have.been.calledOnce;
+        });
+
+        // it('is expected to call on JSON.stringify', () => {       //NOT WORKING
+        //     expect(stringifySpy).to.have.been.calledOnce;
+        // });
+
+        it('is expected to return an array with 2 objects', () => {
+            expect(collection).to.be.an.instanceOf(Array).and.have.length(2);
+        });
+
+        it('is expected to respond with a success message', () => {
+            expect(message).to.equal('Contact deleted!');
         });
 
     });
