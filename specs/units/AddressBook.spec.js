@@ -36,7 +36,9 @@ describe('AddressBook', () => {
             twitter: "@john_doe",
         });
 
-        context.only('with valid data', () => {
+        def('invalidData', 'this is not an object!');
+
+        context('with valid data', () => {
 
             beforeEach(() => {
                 message = $subject.create($validData);
@@ -68,6 +70,46 @@ describe('AddressBook', () => {
 
         });
 
+        context('with invalid data', () => {
+            
+            beforeEach(() => {
+                message = $subject.create($invalidData);
+            });
+
+            it('is expected to respond with an error message', () => {
+                expect(message).to.equal('We could not process your entry');
+            });
+
+        });
+
+    });
+
+    describe('#index', () => {
+
+        let collection;
+
+        beforeEach(() => {
+            
+            $subject.create({ name: 'Giovanni' });
+            $subject.create({ name: 'Luca' });
+            $subject.create({ name: 'Matteo' });
+            sinon.reset();
+            collection = $subject.index();
+            
+        });
+
+        it('is expected to call on localStorage.getItem()', () => {
+            expect(getItemSpy).to.have.been.calledOnce;
+        });
+
+        it('is expected to call on JSON.parse()', () => {
+            expect(parseSpy).to.have.been.calledOnce;
+        });
+
+        it('is expected to return an array with 3 objects', () => {
+            expect(collection).to.be.an.instanceOf(Array).and.have.length(3);
+        });
+        
     });
 
 });
