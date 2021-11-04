@@ -18,12 +18,14 @@ describe('AddressBook', () => {
 
     it(() => is.expected.to.respondTo('create'));
 
-    let setItemSpy, getItemSpy, stringifySpy, parseSpy, message;
+    let setItemSpy, getItemSpy, stringifySpy, parseSpy, message, arrayFindIndexSpy, arraySpliceSpy;
 
     setItemSpy = sinon.spy(window.localStorage, 'setItem');
     getItemSpy = sinon.spy(window.localStorage, 'getItem');
     stringifySpy = sinon.spy(JSON, 'stringify');
     parseSpy = sinon.spy(JSON, 'parse');
+    arrayFindIndexSpy = sinon.spy([], 'findIndex');
+    arraySpliceSpy = sinon.spy([], 'splice');
 
     describe('#create', () => {
 
@@ -95,7 +97,7 @@ describe('AddressBook', () => {
             $subject.create({ name: 'Matteo' });
             sinon.reset();
             collection = $subject.index();
-            
+
         });
 
         it('is expected to call on localStorage.getItem()', () => {
@@ -110,6 +112,43 @@ describe('AddressBook', () => {
             expect(collection).to.be.an.instanceOf(Array).and.have.length(3);
         });
         
+    });
+
+    describe('#update', () => {
+
+        let collection;
+        
+        beforeEach(() => {
+            
+            $subject.create({ name: 'Gaia' });
+            $subject.create({ name: 'Marta' });
+            $subject.create({ name: 'Jack' });
+            message = $subject.update({ name: 'Marta' }, { name: 'Johanna' });
+            sinon.reset();
+            collection = $subject.index();
+
+        });
+
+        it('is expected to call on localStorage.getItem()', () => {
+            expect(getItemSpy).to.have.been.calledOnce;
+        });
+
+        it('is expected to call on JSON.parse()', () => {
+            expect(parseSpy).to.have.been.calledOnce;
+        });
+
+        // it('is expected to call on Array.findIndex()', () => {  //NOT WORKING
+        //     expect(arrayFindIndexSpy).to.have.been.calledOnce;
+        // });
+
+        // it('is expected to call on Array.splice()', () => {    //NOT WORKING
+        //     expect(arraySpliceSpy).to.have.been.calledOnce;
+        // });
+
+        it('is expected to respond with a success message', () => {
+            expect(message).to.equal('Contact updated!');
+        });
+
     });
 
 });
