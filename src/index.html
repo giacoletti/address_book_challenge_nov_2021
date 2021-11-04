@@ -9,7 +9,7 @@
 <body>
     <h1>Address Book</h1>
     <button id="add-contact">Add New Contact</button>
-    <form id="new-contact-form">
+    <form action="/" id="new-contact-form">
         <label for="name" id="nameLabel">Name</label>
         <input type="text" id="name">
         <label for="email" id="emailLabel">Email</label>
@@ -22,6 +22,8 @@
         <textarea id="notes" cols="30" rows="10"></textarea>
         <label for="twitter" id="twitterLabel">Twitter</label>
         <input type="text" id="twitter">
+        <button type="submit" id="create-contact">Save Contact</button>
     </form>
+    <div id="contact-list"></div>
 </body>
 </html>

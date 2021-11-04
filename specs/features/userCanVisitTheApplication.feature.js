@@ -19,6 +19,7 @@ describe('User visiting the application url', () => {
         cy.get('#notes').should('exist');
         cy.get('#twitterLabel').should('contain.text', 'Twitter');
         cy.get('#twitter').should('exist');
+        cy.get('#create-contact').should('exist');
     });
     
 });
