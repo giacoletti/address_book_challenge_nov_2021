@@ -25,5 +25,24 @@ describe('User visiting the application url', () => {
     it('is expected to display 2 entries', () => {
         cy.get('@displayList').children().should('have.length', 2);
     });
-    
+
+    describe('User adding an entry by submitting a form', () => {
+
+        beforeEach(() => {
+            cy.get('[name=name]').type('Jill Doe');
+            cy.get('[name=phone]').type('0700-123554');
+            cy.get('[name=twitter]').type('@jill_doe');
+            cy.get('[name=submit]').click();
+        });
+
+        it('is expected to display 3 entries', () => {
+            cy.get('@displayList').children().should('have.length', 3);
+        });
+
+        it('is expected to display the new entry', () => {
+            cy.get('@displayList').should('contain.text', 'Jill Doe');
+        });
+
+    });
+
 });
