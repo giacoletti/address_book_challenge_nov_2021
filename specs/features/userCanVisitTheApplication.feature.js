@@ -45,4 +45,18 @@ describe('User visiting the application url', () => {
 
     });
 
+    describe('User trying to save an entry without a name', () => {
+        
+        beforeEach(() => {
+            cy.get('[name=phone]').type('0700-123554');
+            cy.get('[name=twitter]').type('@jill_doe');
+            cy.get('[name=submit]').click();
+        });
+        
+        it('is expected to display error message about missing a name', () => {
+            cy.get('[id=response_message]').should('contain.text', 'Please enter a name!');
+        });
+
+    });
+
 });

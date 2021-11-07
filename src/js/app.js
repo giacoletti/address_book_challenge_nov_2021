@@ -1,5 +1,6 @@
 const addressBook = new AddressBook();
 const addressList = document.querySelector("[name=address_list] ul");
+const messageElement = document.getElementById("response_message");
 
 const displayEntries = () => {
     addressList.innerHTML = "";
@@ -16,13 +17,18 @@ const displayEntries = () => {
 };
 
 const handleForm = (form) => {
-    const name = form.elements.name.value;
-    const phone = form.elements.phone.value;
-    const twitter = form.elements.twitter.value;
-    addressBook.create({ name: name, phone: phone, twitter: twitter });
-    form.reset();
-    displayEntries();
-    return false;
+    if (form.elements.name.value.trim() === "") {
+        messageElement.innerText = "Please enter a name!";
+    } else {
+        const name = form.elements.name.value;
+        const phone = form.elements.phone.value;
+        const twitter = form.elements.twitter.value;
+        addressBook.create({ name: name, phone: phone, twitter: twitter });
+        form.reset();
+        displayEntries();
+        messageElement.innerText = "Contact saved!";
+    }
+    return false;   //it prevents the page from reloading
 };
 
 displayEntries();
