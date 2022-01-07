@@ -55,4 +55,19 @@ describe('User visiting the application url', () => {
         .should('contain.text', 'Please enter a name!');
     });
   });
+
+  describe('can see a message if the contact list is empty', () => {
+    beforeEach(() => {
+      cy.visit('/', {
+        onBeforeLoad(window) {
+          window.localStorage.clear();
+        }
+      });
+    });
+
+    it('is expected to display message "You have no contacts in your address book."', () => {
+      cy.get('@displayList').should('contain.text', 'You have no contacts in your address book.')
+        .and('be.visible');
+    });
+  });
 });
