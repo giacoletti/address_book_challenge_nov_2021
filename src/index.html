@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Address Book</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Address Book</title>
 </head>
+
 <body>
-    <h1>Address Book</h1>
-    <div name="address_form">
-        <form onsubmit="return handleForm(this)">
-            <label for="name">Name: </label><input type="text" name="name">
-            <label for="phone">Phone: </label><input type="text" name="phone">
-            <label for="twitter">Twitter: </label><input type="text" name="twitter">
-            <input type="submit" value="Save" name="submit">
-        </form>
-    </div>
-    <div id="response_message"></div>
-    <div name="address_list"><ul></ul></div>
-    <script src="./js/AddressBook.js"></script>
-    <script src="./js/app.js"></script>
+  <h1>Address Book</h1>
+  <div name="address_form">
+    <form onsubmit="return handleForm(this)">
+      <label for="name">Name: </label><input type="text" name="name">
+      <label for="phone">Phone: </label><input type="text" name="phone">
+      <label for="twitter">Twitter: </label><input type="text" name="twitter">
+      <input type="submit" value="Save" name="submit">
+    </form>
+  </div>
+  <div id="response_message"></div>
+  <div name="address_list">
+    <ul></ul>
+  </div>
+  <script src="./js/AddressBook.js"></script>
+  <script src="./js/app.js"></script>
 </body>
+
 </html>
