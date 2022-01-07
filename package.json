@@ -5,6 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "bdd-lazy-var": "^2.6.1",
+    "browser-sync": "^2.27.7",
     "chai": "^4.3.4",
     "cypress": "^8.7.0",
     "mocha": "^9.1.3",
@@ -15,6 +16,7 @@
   },
   "scripts": {
     "start": "superstatic src --port 3000",
+    "start:hot": "node serve.js",
     "cy:open": "cypress open",
     "cypress": "start-server-and-test start http://localhost:3000 cy:open",
     "test": "mocha --file specs/specHelper.js -u bdd-lazy-var/global --recursive --exit specs/units"
