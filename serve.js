@@ -6,7 +6,7 @@ browserSync.init({
     baseDir: 'src',
     middleware: [superstatic({ stack: 'strict' })]
   },
-  port: 3000,
+  port: 3474,
   watch: true,
   files: ['./src/*.html', '.src/**/*.css', '.src/**/*.js']
 });

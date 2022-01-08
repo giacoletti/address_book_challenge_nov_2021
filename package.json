@@ -15,10 +15,10 @@
     "superstatic": "^7.1.0"
   },
   "scripts": {
-    "start": "superstatic src --port 3000",
+    "start": "superstatic src --port 3474",
     "start:hot": "node serve.js",
     "cy:open": "cypress open",
-    "cypress": "start-server-and-test start http://localhost:3000 cy:open",
+    "cypress": "start-server-and-test start http://localhost:3474 cy:open",
     "test": "mocha --file specs/specHelper.js -u bdd-lazy-var/global --recursive --exit specs/units"
   }
 }
